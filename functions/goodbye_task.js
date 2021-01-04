@@ -8,7 +8,7 @@ exports.goodbye_task =async function(context, event, callback,RB) {
   let Handoff = false;
   let Say = "";
   // Add your code here.
-  console.log('goodbye_task and test');
+  console.log('goodbye_task 12-30-220');
   //const Memory = JSON.parse(event.Memory);
   //let AmountPay=800.00;//755.55;//800.00; // Default Amount for testing
   // if(Memory.AmountPay!=undefined)

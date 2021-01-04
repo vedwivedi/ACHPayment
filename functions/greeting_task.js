@@ -11,7 +11,24 @@ exports.greeting_task =async function(context, event, callback,RB) {
   // Add your code here.
   console.log('greeting_task');
   
-  Say='Hello this is from greeting task';
+  
+  Collect = {
+    "name": "collect_routing",
+    "questions": [
+      {
+        "question": `We will need your Bank information,, We will allow you time to get your bank information,, Say or use your telephone keypad to enter  the routing number , when ready.`,
+        "voice_digits": {
+          "finish_on_key": "#"
+        },
+        "name": "routing_num",
+        "type": "Twilio.NUMBER_SEQUENCE"
+      }
+    ],
+    "on_complete": {
+      "redirect": "task://check_routing_number"
+    }
+  };
+  
   //End of your code.
   // This callback is what is returned in response to this function being invoked.
   //const functions = Runtime.getFunctions();

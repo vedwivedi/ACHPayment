@@ -27,6 +27,7 @@ exports.fallback_task =async function(context, event, callback,RB) {
   // Remember.FACSFreq="";
   // Remember.LegalAnnounce="";
   Say='Hello this is from fallback task';
+
   //End of your code.
   // This callback is what is returned in response to this function being invoked.
   // const functions = Runtime.getFunctions();
