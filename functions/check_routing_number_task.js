@@ -12,23 +12,37 @@ exports.check_routing_number_task =async function(context, event, callback,RB) {
   // Add your code here.
   const Memory = JSON.parse(event.Memory);
 
-  Remember.task_fail_counter = 0;
   Remember.repeat = false;
 
   const routing_num = Memory.twilio.collected_data.collect_routing.answers.routing_num.answer ||
                       event.Field_routing_num_Value ||
                       event.Field_routing_num_alt_Value;
             
-    //Remember.routing_number=routing_num;
-// let requestObj={
-//   "routing_number":routing_num
-// }
+    
+if(Memory.checkRouting_fail_counter===undefined)
+      {
+        Remember.checkRouting_fail_counter=1;
+        console.log('Counter: '+Remember.checkRouting_fail_counter);
+      }
+      else{
+        Remember.checkRouting_fail_counter = Memory.checkRouting_fail_counter + 1;
+        console.log('Counter: '+Remember.checkRouting_fail_counter);
+      }
+      if(Memory.checkRouting_fail_counter >= 2)
+      {
+        Say = false;
+      Listen = false;
+      Remember.checkRouting_fail_counter = 0;
+      Redirect = 'task://agent_transfer';
+      }
+else
+{
   if ( routing_num ) {
     const validRoutingNum = brnv.ABARoutingNumberIsValid(routing_num);
 
     if ( validRoutingNum ) {
       Say = `You said <say-as interpret-as='digits'>${routing_num}</say-as>. `;
-      Prompt = `Is that correct?`;
+      Prompt = `Is that correct? say yes or no .`;
     
       Say += Prompt;
       
@@ -66,14 +80,11 @@ exports.check_routing_number_task =async function(context, event, callback,RB) {
     Remember.from_task = event.CurrentTask;
     Redirect = 'task://fallback';
   }
+}
 
   
   //End of your code.
-  // This callback is what is returned in response to this function being invoked.
-  //const functions = Runtime.getFunctions();
-  //let RB = require('responseBuilder.js');
-   //let path = functions['responseBuilder'].path;
-   //let RB = require(path);
+  
    RB(Say, Listen, Remember, Collect, Tasks, Redirect, Handoff, callback);
   
    } catch (error) {

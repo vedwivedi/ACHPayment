@@ -16,7 +16,7 @@ exports.greeting_task =async function(context, event, callback,RB) {
     "name": "collect_routing",
     "questions": [
       {
-        "question": `We will need your Bank information,, We will allow you time to get your bank information,, Say or use your telephone keypad to enter  the routing number , when ready.`,
+        "question": `We will need your Bank information,, We will allow you time to get your bank information,, Say your routing number or enter your routing number followed by a pound sign , when ready.`,
         "voice_digits": {
           "finish_on_key": "#"
         },
