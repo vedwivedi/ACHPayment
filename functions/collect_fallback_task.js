@@ -8,27 +8,70 @@ exports.collect_fallback_task =async function(context, event, callback,RB) {
   let Handoff = false;
   let Say = "";
   // Add your code here.
+  const Memory = JSON.parse(event.Memory);
   console.log('collect_fallback_task');
-  //const Memory = JSON.parse(event.Memory);
-  //let AmountPay=800.00;//755.55;//800.00; // Default Amount for testing
-  // if(Memory.AmountPay!=undefined)
-  //   AmountPay=Number(Memory.AmountPay).toFixed(2);
-  //console.log("Memory.AmountPay "+Memory.AmountPay);
-  //console.log("AmountPay "+AmountPay);
-  // Initialize Remember variables *********. 
-  // Remember.PaymentAmt=AmountPay;
-  // Remember.AgentTransfer=false;
-  // Remember.InstallmentPayment=0.0;
-  // Remember.NP=0;
-  // Remember.FP=0.0;
-  // Remember.start_date="";
-  // Remember.InstallmentStart_Date="";
-  // Remember.Frequency="";
-  // Remember.FACSFreq="";
-  // Remember.LegalAnnounce="";
-  Say='Hello this is from fallback task';
+switch(Memory.question)
+{
+  case 'greeting':
+    if(Memory.CallectFallback_greetings_counter===undefined)
+     Remember.CallectFallback_greetings_counter=1;
+    else
+     Remember.CallectFallback_greetings_counter = Memory.CallectFallback_greetings_counter + 1;
+
+     if(Memory.CallectFallback_greetings_counter >= 2)
+     {
+       Say = false;
+       Listen = false;
+       Remember.CallectFallback_greetings_counter = 0;
+       Redirect = 'task://agent_transfer';
+     }
+     else
+       Redirect = 'task://greeting';
+       break;
+
+  case 'bank_acc_type_check':
+    Remember.bank_acc_type_check='No';
+    if(Memory.CallectFallback_bankAccType_counter===undefined)
+     Remember.CallectFallback_bankAccType_counter=1;
+    else
+     Remember.CallectFallback_bankAccType_counter = Memory.CallectFallback_bankAccType_counter + 1;
+
+     if(Memory.CallectFallback_bankAccType_counter >= 2)
+     {
+       Say = false;
+       Listen = false;
+       Remember.CallectFallback_bankAccType_counter = 0;
+       Redirect = 'task://agent_transfer';
+     }
+     else
+       Redirect = 'task://bank_account_type';
+        break;
+
+   case 'bank_acc_num_check':
+    Remember.bank_acc_num_check='No';
+    if(Memory.CallectFallback_AccNumCheck_counter===undefined)
+     Remember.CallectFallback_AccNumCheck_counter=1;
+    else
+     Remember.CallectFallback_AccNumCheck_counter = Memory.CallectFallback_AccNumCheck_counter + 1;
+
+     if(Memory.CallectFallback_AccNumCheck_counter >= 2)
+     {
+       Say = false;
+       Listen = false;
+       Remember.CallectFallback_AccNumCheck_counter = 0;
+       Redirect = 'task://agent_transfer';
+     }
+     else
+       Redirect = 'task://bank_account_number';
+        break;
+
+    default:
+      Say = false;
+      Redirect = 'task://agent_transfer';
+      break;
+     
+} 
   //End of your code.
-  // This callback is what is returned in response to this function being invoked.
   
   RB(Say, Listen, Remember, Collect, Tasks, Redirect, Handoff, callback);
   

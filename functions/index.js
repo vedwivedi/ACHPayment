@@ -1,4 +1,6 @@
  const functions = Runtime.getFunctions();
+ const BankAccTypeHandler = require(functions['bank_account_type_task'].path);
+ const BankAccountnumberHandler = require(functions['bank_account_number_task'].path);
  const AgentTransferTypeHandler = require(functions['agent_transfer_task'].path);
  const CheckAccTypeHandler = require(functions['check_bank_acc_type_task'].path);
  const CheckAccNumberHandler = require(functions['check_bank_acc_number_task'].path);
@@ -20,7 +22,16 @@ console.log("currenttask"+ CurrentTask);
   // calling task handlers
   switch (CurrentTask) {
 
-    case 'check_bank_acc_type':
+    case 'bank_account_type':
+      console.log('bank_account_type');
+      await BankAccTypeHandler.bank_account_type_task(context, event, callback,responseBuilder.RB);
+      break;
+    case 'bank_account_number':
+      console.log('bank_account_number');
+      await BankAccountnumberHandler.bank_account_number_task(context, event, callback,responseBuilder.RB);
+      break;
+
+      case 'check_bank_acc_type':
       console.log('check_bank_acc_type');
       await CheckAccTypeHandler.check_bank_acc_type_task(context, event, callback,responseBuilder.RB);
       break;

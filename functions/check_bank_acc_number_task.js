@@ -13,27 +13,12 @@ exports.check_bank_acc_number_task =async function(context, event, callback,RB) 
   //Remember.task_fail_counter = 0;
   Remember.repeat = false;
 
+  // collact bank account number from twilio memory
   const bank_acc_num = Memory.twilio.collected_data.collect_bank_acc.answers.bank_acc.answer ||
                       event.Field_bank_acc_num_Value ||
                       event.Field_bank_acc_num_alt_Value;
-  if(Memory.bankNumCheck_fail_counter===undefined)
-  {
-    Remember.bankNumCheck_fail_counter=1;
-    console.log('Counter: '+Remember.bankNumCheck_fail_counter);
-  }
-  else{
-    Remember.bankNumCheck_fail_counter = Memory.bankNumCheck_fail_counter + 1;
-    console.log('Counter: '+Remember.bankNumCheck_fail_counter);
-  }
-  if(Memory.bankNumCheck_fail_counter >= 2)
-  {
-    Say = false;
-  Listen = false;
-  Remember.bankNumCheck_fail_counter = 0;
-  Redirect = 'task://agent_transfer';
-  }
-  else
-  {
+  
+   // Confirm bank account number                  
   if ( bank_acc_num ) {
     Say = `You said <say-as interpret-as='digits'>${bank_acc_num}</say-as>. Is that correct?`;
     Prompt = ` say yes or no.`;
@@ -52,7 +37,7 @@ exports.check_bank_acc_number_task =async function(context, event, callback,RB) 
     Remember.from_task = event.CurrentTask;
     Redirect = 'task://fallback';
   }
-  }
+  
     
     //End of your code.
     

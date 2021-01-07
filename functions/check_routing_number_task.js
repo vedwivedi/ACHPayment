@@ -14,30 +14,14 @@ exports.check_routing_number_task =async function(context, event, callback,RB) {
 
   Remember.repeat = false;
 
+  // Collect routing number from Memory
   const routing_num = Memory.twilio.collected_data.collect_routing.answers.routing_num.answer ||
                       event.Field_routing_num_Value ||
                       event.Field_routing_num_alt_Value;
-            
-    
-if(Memory.checkRouting_fail_counter===undefined)
-      {
-        Remember.checkRouting_fail_counter=1;
-        console.log('Counter: '+Remember.checkRouting_fail_counter);
-      }
-      else{
-        Remember.checkRouting_fail_counter = Memory.checkRouting_fail_counter + 1;
-        console.log('Counter: '+Remember.checkRouting_fail_counter);
-      }
-      if(Memory.checkRouting_fail_counter >= 2)
-      {
-        Say = false;
-      Listen = false;
-      Remember.checkRouting_fail_counter = 0;
-      Redirect = 'task://agent_transfer';
-      }
-else
-{
+
+   // Validate the routing number which user provided                   
   if ( routing_num ) {
+    //function for validate routing number. 
     const validRoutingNum = brnv.ABARoutingNumberIsValid(routing_num);
 
     if ( validRoutingNum ) {
@@ -51,36 +35,55 @@ else
     
       Listen = true;
       Tasks=['yes_no', 'agent_transfer'];
-    } else {
-      Collect = {
-        "name": "collect_routing",
-        "questions": [
-          {
-            "question": `The routing number you provided is not valid. Please say or use your telephone keypad to provide a valid routing number.`,
-            "voice_digits": {
-              "finish_on_key": "#"
-            },
-            "name": "routing_num",
-            "type": "Twilio.NUMBER_SEQUENCE"
-          }
-        ],
-        "on_complete": {
-          "redirect": "task://check_routing_number"
-        }
-      };
-      // Say = `The routing number you provided is not valid. `;
-      // Prompt = `Please provide a valid routing number.`;
-    
+    } 
+    else {
+          if(Memory.checkRoutingNo_fail_counter===undefined)
+           {
+             Remember.checkRoutingNo_fail_counter=1;
+             console.log('Counter: '+Remember.checkRoutingNo_fail_counter);
+           }
+           else{
+             Remember.checkRoutingNo_fail_counter = Memory.checkRoutingNo_fail_counter + 1;
+             console.log('Counter: '+Remember.checkRoutingNo_fail_counter);
+           }
+
+           if(Memory.checkRoutingNo_fail_counter >= 2)
+           {
+             Say = false;
+           Listen = false;
+           Remember.checkRoutingNo_fail_counter = 0;
+           Redirect = 'task://agent_transfer';
+           }
+           else
+           {
+           Collect = {
+             "name": "collect_routing",
+             "questions": [
+               {
+                 "question": `The routing number you provided <say-as interpret-as='digits'>${routing_num}</say-as> is not valid. Please say or use your telephone keypad to provide a valid routing number.`,
+                 "voice_digits": {
+                   "finish_on_key": "#"
+                 },
+                 "name": "routing_num",
+                 "type": "Twilio.NUMBER_SEQUENCE"
+               }
+             ],
+             "on_complete": {
+               "redirect": "task://check_routing_number"
+             }
+           };
+      
       Say = false;
       Listen = false;
     }
-  } else {
+  }
+} 
+  else {
     Say = false;
     Listen = false;
     Remember.from_task = event.CurrentTask;
     Redirect = 'task://fallback';
   }
-}
 
   
   //End of your code.
