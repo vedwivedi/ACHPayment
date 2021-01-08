@@ -21,15 +21,24 @@ exports.check_bank_acc_type_task =async function(context, event, callback,RB) {
     //this code check bank_acc_type and confirm from user that the bank_acc_type is correct or not
      if ( bank_acc_type ) {
        console.log('check bank type: '+bank_acc_type);
-       Say = `you said ${bank_acc_type}. Is that correct? `;
-       Prompt = `say yes or no .`;
+       Say = `you said ${bank_acc_type}. `;
+       Prompt = `Is that correct? say yes or no. You can also press 1 for yes and 2 for no.`;
      
        Say += Prompt;
        
        Remember.bank_acc_type = bank_acc_type;
        Remember.question = 'bank_acc_type_check';
      
-       Listen = true;
+       Listen = {
+        "voice_digits":{
+          "num_digits": 1,
+          "finish_on_key": "#",
+          "redirects": {
+            1: "task://goodbye",
+            2: "task://bank_account_type"
+          }
+        }
+      }
        Tasks=['yes_no', 'agent_transfer'];
      } 
      else {

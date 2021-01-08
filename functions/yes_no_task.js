@@ -17,6 +17,7 @@ exports.yes_no_task = async function(context, event, callback, RB)
   console.log(event.Field_yes_no_Value);
   console.log("Current Input: "+ CurrentInput);
   let YesNo=CheckYesNoInput(CurrentInput);
+  console.log('yesno: '+ YesNo);
  
 
   switch ( Memory.question ) {
@@ -137,6 +138,7 @@ exports.yes_no_task = async function(context, event, callback, RB)
     let sYesNo='';
         
     if(x.includes('correct')) sYesNo='Yes';
+    if(x.includes('It is correct')) sYesNo='Yes';
     if(x.includes('sure')) sYesNo='Yes';
     if(x.includes('yeah')) sYesNo='Yes';
     if(x.includes('yah')) sYesNo='Yes';
@@ -145,10 +147,14 @@ exports.yes_no_task = async function(context, event, callback, RB)
     if(x.includes('OK')) sYesNo='Yes';
     if(x.includes('agree')) sYesNo='Yes';
     if(x.includes('yup')) sYesNo='Yes';
-    if(x.includes('you got it')) sYesNo='Yes';
-    if(x.includes('it is true')) sYesNo='Yes';
+    if(x.includes('You got it.')) sYesNo='Yes';
+    if(x.includes('It is true')) sYesNo='Yes';
 
     if(x.includes('not')) sYesNo='No';
+    if(x.includes('wrong')) sYesNo='No';
+    if(x.includes('not correct')) sYesNo='Yes';
+    if(x.includes('It is not correct')) sYesNo='Yes';
+    if(x.includes('It is wrong')) sYesNo='No';
     if(x.includes('noway')) sYesNo='No';
     if(x.includes('nah')) sYesNo='No';
     if(x.includes('negative')) sYesNo='No';
