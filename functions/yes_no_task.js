@@ -137,8 +137,24 @@ exports.yes_no_task = async function(context, event, callback, RB)
     let sYesNo='';
         
     if(x.includes('correct')) sYesNo='Yes';
-    else if(x.includes('not')) sYesNo='No';
-    else if(x.includes('you got it')) sYesNo='Yes';
+    if(x.includes('sure')) sYesNo='Yes';
+    if(x.includes('yeah')) sYesNo='Yes';
+    if(x.includes('yah')) sYesNo='Yes';
+    if(x.includes('yep')) sYesNo='Yes';
+    if(x.includes('okay')) sYesNo='Yes';
+    if(x.includes('OK')) sYesNo='Yes';
+    if(x.includes('agree')) sYesNo='Yes';
+    if(x.includes('yup')) sYesNo='Yes';
+    if(x.includes('you got it')) sYesNo='Yes';
+    if(x.includes('it is true')) sYesNo='Yes';
+
+    if(x.includes('not')) sYesNo='No';
+    if(x.includes('noway')) sYesNo='No';
+    if(x.includes('nah')) sYesNo='No';
+    if(x.includes('negative')) sYesNo='No';
+    if(x.includes('it is not true')) sYesNo='No';
+    
+    //else if(x.includes('it is')) sYesNo='Yes';
 
 console.log("sYesNo: "+ sYesNo);
     
