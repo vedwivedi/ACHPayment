@@ -1,7 +1,7 @@
 // reference to function with exports.handler
 // const functions = Runtime.getFunctions();
 // let PA = require(functions['PaymentArrangement'].path);
-const eventHandler = require('../functions/fallback_task.js');
+const eventHandler = require('../functions/check_routing_number_task.js');
 const responseBuilder = require('./responseBuilder.js');
 
 const context = {};
@@ -40,5 +40,5 @@ console.log(JSON.stringify(data));
 }
 
 // call the function
-eventHandler.fallback_task(context, event, callback,responseBuilder.RB);
+eventHandler.check_routing_number_task(context, event, callback,responseBuilder.RB);
 //PA.PaymentArrangement(context, event, callback);
