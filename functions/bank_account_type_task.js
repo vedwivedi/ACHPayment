@@ -25,7 +25,7 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
             console.log('Counter: '+Remember.AccType_fail_counter);
           }
 
-          if(Memory.AccType_fail_counter > 2)
+          if(Memory.AccType_fail_counter >= 2)
           {
             Say = false;
           Listen = false;
@@ -92,6 +92,25 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
     }
     else
           {
+            if(Memory.AccTypeel_fail_counter===undefined)
+            {
+              Remember.AccTypeel_fail_counter=1;
+              console.log('Counter: '+Remember.AccTypeel_fail_counter);
+            }
+            else{
+              Remember.AccTypeel_fail_counter = Memory.AccTypeel_fail_counter + 1;
+              console.log('Counter: '+Remember.AccTypeel_fail_counter);
+            }
+  
+            if(Memory.AccTypeel_fail_counter >= 2)
+            {
+              Say = false;
+            Listen = false;
+            Remember.AccTypeel_fail_counter = 0;
+            Redirect = 'task://agent_transfer';
+            }
+            else
+            {
             Remember.question = 'bank_acc_type_check';
             Collect =  {
               "name": "collect_acctype",
@@ -146,6 +165,7 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                   }
                 }
           }
+        }
   }
 
   // This piese of code executed when task redirect first time when user say yes to confirm Bank account
@@ -153,21 +173,21 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
   {
     if(Memory.bank_acc_type_check===undefined)
     {
-          if(Memory.AccType_fail_counter===undefined)
+          if(Memory.AccElType_fail_counter===undefined)
           {
-            Remember.AccType_fail_counter=1;
-            console.log('Counter: '+Remember.AccType_fail_counter);
+            Remember.AccElType_fail_counter=1;
+            console.log('Counter: '+Remember.AccElType_fail_counter);
           }
           else{
-            Remember.AccType_fail_counter = Memory.AccType_fail_counter + 1;
-            console.log('Counter: '+Remember.AccType_fail_counter);
+            Remember.AccElType_fail_counter = Memory.AccElType_fail_counter + 1;
+            console.log('Counter: '+Remember.AccElType_fail_counter);
           }
 
-          if(Memory.AccType_fail_counter >= 2)
+          if(Memory.AccElType_fail_counter >= 2)
           {
             Say = false;
           Listen = false;
-          Remember.AccType_fail_counter = 0;
+          Remember.AccElType_fail_counter = 0;
           Redirect = 'task://agent_transfer';
           }
           else
@@ -225,32 +245,28 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                 "redirect": "task://check_bank_acc_type"
               }
             }
-            // Collect =  {
-            //   "name": "collect_acctype",
-            //   "questions": [
-            //           {
-            //           "question": `Tell me your bank account type by saying "checking" for checking account or press 1 "savings" for savings account or press 2.`,
-            //           "name": "bank_acc_type",
-            //           //"type": "Twilio.bank_acc_type",
-            //           "voice_digits": {
-            //             "num_digits": 1,
-            //             "finish_on_key": "#",
-            //             "mapping": {
-            //               "1": "Checking",
-            //               "2": "Saving"
-            //             }
-            //           }
-                      
-            //           }
-          
-            //         ],
-            //   "on_complete": {
-            //   "redirect": 	 "task://check_bank_acc_type"
-            //           }
-            // };
           }
         }
     else{
+      if(Memory.AccunType_fail_counter===undefined)
+          {
+            Remember.AccunType_fail_counter=1;
+            console.log('Counter: '+Remember.AccunType_fail_counter);
+          }
+          else{
+            Remember.AccunType_fail_counter = Memory.AccunType_fail_counter + 1;
+            console.log('Counter: '+Remember.AccunType_fail_counter);
+          }
+
+          if(Memory.AccunType_fail_counter >= 2)
+          {
+            Say = false;
+          Listen = false;
+          Remember.AccunType_fail_counter = 0;
+          Redirect = 'task://agent_transfer';
+          }
+          else
+          {
           Remember.question = 'bank_acc_type_check';
           Collect= {
             "name": "collect_acctype",
@@ -305,6 +321,7 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
             }
           }
         }
+      }
   }
     //End of your code.
   
