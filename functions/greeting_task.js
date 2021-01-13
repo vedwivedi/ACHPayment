@@ -54,6 +54,7 @@ exports.greeting_task =async function(context, event, callback,RB) {
   }
 }
   else{
+    
     Remember.question = 'greeting';
     Collect =  {
            "name": "collect_routing",

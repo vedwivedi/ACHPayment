@@ -40,7 +40,7 @@
                 }
             },
             "voice" : {
-                "say_voice" : "Polly.Matthew"
+                "say_voice" : "Polly.pollyana"
             },
             "name" : ""
         }
@@ -67,6 +67,21 @@
                 {
                     "language" : "en-US",
                     "value" : "ajent",
+                    "synonymOf" : "agent"
+                },
+                {
+                    "language" : "en-US",
+                    "value" : "representative",
+                    "synonymOf" : "agent"
+                },
+                {
+                    "language" : "en-US",
+                    "value" : "rep",
+                    "synonymOf" : "agent"
+                },
+                {
+                    "language" : "en-US",
+                    "value" : "person",
                     "synonymOf" : "agent"
                 }
             ]
@@ -165,6 +180,30 @@
             "samples" : [
                 {
                     "language" : "en-US",
+                    "taggedText" : "I need help from a {agent_transfer}"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "{agent_transfer} transfer please"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "{agent_transfer} Please"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "transfer me to a {agent_transfer}"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "connect me to a {agent_transfer}"
+                },
+                {
+                    "language" : "en-US",
+                    "taggedText" : "I want to talk to {agent_transfer}"
+                },
+                {
+                    "language" : "en-US",
                     "taggedText" : "{agent_transfer}"
                 }
             ]
@@ -257,6 +296,10 @@
             "samples" : [
                 {
                     "language" : "en-US",
+                    "taggedText" : "correct"
+                },
+                {
+                    "language" : "en-US",
                     "taggedText" : "that is correct"
                 },
                 {
@@ -331,26 +374,27 @@
             "actions" : {
                 "actions" : [
                     {
-                        "collect" : {
-                            "on_complete" : {
-                                "redirect" : "task://goodbye"
-                            },
-                            "name" : "ask account type",
-                            "questions" : [
-                                {
-                                    "type" : "bank_acc_type",
-                                    "question" : "Hi! What is your bank account. Say checking or press 1.  Say savings or press 2.",
-                                    "name" : "BankAccType",
-                                    "voice_digits" : {
-                                        "mapping" : {
-                                            "1" : "Checking",
-                                            "2" : "Savings"
-                                        },
-                                        "finish_on_key" : "#",
-                                        "num_digits" : 1
-                                    }
-                                }
-                            ]
+                        "say" : {
+                            "speech" : "You said <say-as interpret-as='digits'>121122676</say-as>. Is that correct? say yes or no ."
+                        }
+                    },
+                    {
+                        "listen" : {
+                            "voice_digits" : {
+                                "redirects" : {
+                                    "1" : "task://bank_account_number",
+                                    "2" : "task://greeting"
+                                },
+                                "finish_on_key" : "#",
+                                "num_digits" : 1
+                            }
+                        }
+                    },
+                    {
+                        "remember" : {
+                            "repeat" : false,
+                            "question" : "routing_check",
+                            "bank_acc_routing" : "121122676"
                         }
                     }
                 ]
@@ -499,6 +543,6 @@
         }
     ],
     "modelBuild" : {
-        "uniqueName" : "ACHPayment_8-1-2021_3.40.52am"
+        "uniqueName" : "ACHPayment_13-1-2021_10.46.49am"
     }
 }
