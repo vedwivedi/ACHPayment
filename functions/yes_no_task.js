@@ -42,7 +42,7 @@ exports.yes_no_task = async function(context, event, callback, RB)
 
       case 'bank_acc_type_check':
       if (event.Field_yes_no_Value === 'Yes' || YesNo==='Yes') {
-        Redirect = 'task://goodbye';
+        //Redirect = 'task://goodbye';
         break;
       }
 
