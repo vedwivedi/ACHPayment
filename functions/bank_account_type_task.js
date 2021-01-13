@@ -46,17 +46,15 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                         "num_digits": 1,
                         "finish_on_key": "#",
                         "mapping": {
-                          "1": "checking",
-                          "2": "savings"
+                          "1": "Checking",
+                          "2": "Savings"
                         }
                       },
                       "validate": {
                         "allowed_values": {
                           "list": [
-                            "savings",
+                                "savings",
                                 "checkings",
-                                "1",
-                                "2",
                                 "it is a saving",
                                 "it is a checking",
                                 "saving",
@@ -122,8 +120,8 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                         "num_digits": 1,
                         "finish_on_key": "#",
                         "mapping": {
-                          "1": "checking",
-                          "2": "savings"
+                          "1": "Checking",
+                          "2": "Savings"
                         }
                       },
                       //"type": "Twilio.bank_acc_type",
@@ -132,8 +130,6 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                           "list": [
                             "savings",
                                 "checkings",
-                                "1",
-                                "2",
                                 "it is a saving",
                                 "it is a checking",
                                 "saving",
@@ -204,8 +200,8 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                     "num_digits": 1,
                     "finish_on_key": "#",
                     "mapping": {
-                      "1": "checking",
-                      "2": "savings"
+                      "1": "Checking",
+                      "2": "Savings"
                     }
                   },
                   "validate": {
@@ -213,8 +209,6 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                       "list": [
                         "savings",
                             "checkings",
-                            "1",
-                            "2",
                             "it is a saving",
                             "it is a checking",
                             "saving",
@@ -279,8 +273,8 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                   "num_digits": 1,
                   "finish_on_key": "#",
                   "mapping": {
-                    "1": "checking",
-                    "2": "savings"
+                    "1": "Checking",
+                    "2": "Savings"
                   }
                 },
                 "validate": {
@@ -288,8 +282,6 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                     "list": [
                       "savings",
                           "checkings",
-                          "1",
-                          "2",
                           "it is a saving",
                           "it is a checking",
                           "saving",
@@ -309,7 +301,6 @@ exports.bank_account_type_task =async function(context, event, callback,RB) {
                           "my bank account is saving",
                           "my bank account is account",
                           "my bank account is saving",
-                          "my bank account is account"
                     ]
                   }
                 }
