@@ -11,6 +11,7 @@ exports.check_bank_acc_type_task =async function(context, event, callback,RB) {
     const Memory = JSON.parse(event.Memory);
     console.log("memory:"+JSON.stringify(Memory));
     let bank_acc_type ='';
+    let sYesNo='';
     
     //this code check that whether the memory have Bank aacount type or not
     if(Memory.twilio.collected_data!=undefined)
@@ -19,6 +20,11 @@ exports.check_bank_acc_type_task =async function(context, event, callback,RB) {
     }
     
     //this code check bank_acc_type and confirm from user that the bank_acc_type is correct or not
+    let x=bank_acc_type;
+    if(x.includes('saving')) sYesNo='Savings';
+    if(x.includes('checking')) sYesNo='Checking';
+    if(x.includes('Saving')) sYesNo='Savings';
+    if(x.includes('Checking')) sYesNo='Checking';
      if ( bank_acc_type ) {
        console.log('check bank type: '+bank_acc_type);
        Say = `you said ${bank_acc_type}. `;
@@ -26,7 +32,7 @@ exports.check_bank_acc_type_task =async function(context, event, callback,RB) {
      
        Say += Prompt;
        
-       Remember.bank_acc_type = bank_acc_type;
+       Remember.bank_acc_type = sYesNo;
        Remember.question = 'bank_acc_type_check';
      
        Listen = {

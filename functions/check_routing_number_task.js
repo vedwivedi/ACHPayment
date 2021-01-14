@@ -32,7 +32,7 @@ exports.check_routing_number_task =async function(context, event, callback,RB) {
       
       Remember.bank_acc_routing = routing_num;
       Remember.question = 'routing_check';
-      
+      Remember.flag="No";
       Listen = {
         "voice_digits":{
           "num_digits": 1,
